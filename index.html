@@ -1,212 +1,51 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Генератор ников и паролей онлайн</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- SEO -->
-<meta name="description" content="Онлайн генератор ников и паролей для игр. Красивые, случайные и уникальные никнеймы с цифрами и стилями.">
-<meta name="keywords" content="генератор ников, генератор никнеймов, игровые ники, ник для игр, генератор паролей">
-<meta name="robots" content="index, follow">
-
-<!-- Open Graph (для ссылок) -->
-<meta property="og:title" content="Генератор ников и паролей">
-<meta property="og:description" content="Создай красивый и уникальный ник для игр за секунды.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ProvIlik0.github.io/">
-
-<!-- Цвет для браузера -->
-<meta name="theme-color" content="#bb86fc">
+    <meta charset="UTF-8">
+    <title>Генератор ников</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
-<meta charset="UTF-8">
-<title>Генератор ников и паролей онлайн</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- SEO -->
-<meta name="description" content="Онлайн генератор ников и паролей для игр. Красивые, случайные и уникальные никнеймы с цифрами и стилями.">
-<meta name="keywords" content="генератор ников, генератор никнеймов, игровые ники, ник для игр, генератор паролей">
-<meta name="robots" content="index, follow">
-
-<!-- Open Graph (для ссылок) -->
-<meta property="og:title" content="Генератор ников и паролей">
-<meta property="og:description" content="Создай красивый и уникальный ник для игр за секунды.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://pidrilov.github.io/">
-
-<!-- Цвет для браузера -->
-<meta name="theme-color" content="#bb86fc">
-</head>
-
-<meta charset="UTF-8">
-<title>Генератор</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0f0f0f;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
-
-.card{
-    width:360px;
-    background:#1c1c1c;
-    border-radius:16px;
-    padding:24px;
-    box-shadow:0 20px 40px rgba(0,0,0,.6);
-    position:relative;
-}
-
-.tabs{
-    display:flex;
-    background:#2a2a2a;
-    border-radius:10px;
-    overflow:hidden;
-    margin-bottom:16px;
-}
-
-.tab{
-    flex:1;
-    text-align:center;
-    padding:10px;
-    cursor:pointer;
-    color:#aaa;
-}
-
-.tab.active{
-    background:#bb86fc;
-    color:#000;
-    font-weight:bold;
-}
-
-input,select,button{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    border-radius:8px;
-    border:none;
-}
-
-input,select{
-    background:#2a2a2a;
-    color:#fff;
-}
-
-button{
-    background:#bb86fc;
-    color:#000;
-    cursor:pointer;
-}
-
-.secondary{
-    background:#333;
-    color:#fff;
-}
-
-.error{
-    font-size:12px;
-    color:#ff6b6b;
-    margin-top:4px;
-    min-height:16px;
-}
-
-.hidden{display:none;}
-
-.timer{
-    position:absolute;
-    top:10px;
-    right:14px;
-    font-size:13px;
-    color:#bb86fc;
-}
-
-.result{
-    background:#2a2a2a;
-    padding:8px;
-    margin-top:10px;
-    border-radius:6px;
-    word-break:break-all;
-}
-</style>
-</head>
-
 <body>
 
-<!-- AUTH -->
-<div class="card" id="auth">
-    <div class="tabs">
-        <div class="tab active" id="tabReg" onclick="showReg()">Регистрация</div>
-        <div class="tab" id="tabLogin" onclick="showLogin()">Вход</div>
-    </div>
+<div class="app">
+    <div class="card">
+        <div class="timer" id="timer">Осталось 30:00</div>
 
-    <div id="regBox">
-        <input id="regLogin" placeholder="Логин">
-        <div class="error" id="regError"></div>
-        <input id="regPass" type="password" placeholder="Пароль">
-        <button onclick="register()">Создать аккаунт</button>
-    </div>
+        <input type="text" id="baseNick" placeholder="Основа ника">
 
-    <div id="loginBox" class="hidden">
-        <input id="loginLogin" placeholder="Логин">
-        <input id="loginPass" type="password" placeholder="Пароль">
-        <button onclick="login()">Войти</button>
-    </div>
+        <select id="type">
+            <option>Игровой</option>
+        </select>
 
-    <button class="secondary" onclick="createTemp()" style="margin-top:14px">
-        Временный аккаунт (30 минут)
-    </button>
+        <select id="caseType">
+            <option value="normal">Aa</option>
+            <option value="lower">aa</option>
+            <option value="upper">AA</option>
+        </select>
+
+        <button onclick="generateNick()">Сгенерировать ник</button>
+        <div class="result" id="nickResult"></div>
+
+        <button onclick="toggleHistory()">История ников</button>
+        <div class="history" id="history"></div>
+
+        <button onclick="generatePassword()">Сгенерировать пароль</button>
+        <div class="result" id="passResult"></div>
+
+        <button class="exit">Выйти</button>
+    </div>
 </div>
 
-<!-- APP -->
-<div class="card hidden" id="app">
-    <div class="timer hidden" id="timer"></div>
-
-    <input id="nameInput" placeholder="Основа ника">
-
-    <select id="styleSelect">
-        <option value="game">Игровой</option>
-        <option value="media">Медиа</option>
-        <option value="short">Короткий</option>
-    </select>
-
-    <select id="caseSelect">
-        <option value="normal">Aa</option>
-        <option value="upper">AA</option>
-        <option value="lower">aa</option>
-        <option value="random">aA</option>
-    </select>
-
-    <button onclick="generateNickname()">Сгенерировать ник</button>
-    <button class="secondary" onclick="toggleHistory()">История ников</button>
-<div class="result hidden" id="historyBox"></div>
-
-    <div class="result" id="nicknameResult"></div>
-
-    <button onclick="generatePassword()">Сгенерировать пароль</button>
-    <div class="result" id="passwordResult"></div>
-
-    <button class="secondary" onclick="logout()">Выйти</button>
+<!-- подпись -->
+<div class="site-info">
+    <div>Creator: Aviel</div>
+    <div>Visits</div>
 </div>
+
+<!-- РЕАЛЬНЫЙ СЧЁТЧИК -->
+<script data-goatcounter="https://aviel.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
 <script src="script.js"></script>
 </body>
-    <div class="site-info">
-    <div>Creator: Aviel</div>
-    <div id="visits">Visits: 0</div>
-</div>
-
 </html>
-
-
-
-
-
