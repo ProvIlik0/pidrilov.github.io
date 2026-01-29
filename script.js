@@ -181,3 +181,11 @@ function toggleHistory(){
 function copyText(text){
     navigator.clipboard.writeText(text);
 }
+
+(function countVisits(){
+    let visits = localStorage.getItem("siteVisits");
+    visits = visits ? parseInt(visits) + 1 : 1;
+    localStorage.setItem("siteVisits", visits);
+    const v = document.getElementById("visits");
+    if(v) v.innerText = "Visits: " + visits;
+})();
