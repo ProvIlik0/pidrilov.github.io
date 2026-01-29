@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Generator</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Generator</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+<body class="dark">
 
 <div class="container">
 
-    <!-- ===== REGISTER / LOGIN ===== -->
-    <div class="auth" id="auth">
-        <div class="tabs">
-            <button class="active" onclick="showRegister()">Регистрация</button>
-            <button onclick="showLogin()">Вход</button>
-        </div>
-
-        <div id="register">
-            <input id="regLogin" placeholder="Логин">
-            <div class="error" id="regError"></div>
-            <input id="regPass" type="password" placeholder="Пароль">
-            <button onclick="register()">Создать аккаунт</button>
-        </div>
-
-        <div id="login" style="display:none">
-            <input id="logLogin" placeholder="Логин">
-            <input id="logPass" type="password" placeholder="Пароль">
-            <button onclick="login()">Войти</button>
-        </div>
+<!-- AUTH -->
+<div class="auth" id="auth">
+    <div class="tabs">
+        <button id="tabReg" class="active" onclick="showRegister()">Регистрация</button>
+        <button id="tabLog" onclick="showLogin()">Вход</button>
     </div>
 
-    <!-- ===== APP ===== -->
-    <div class="card" id="app" style="display:none">
-        <input id="baseNick" placeholder="Основа ника">
+    <div id="register">
+        <input id="regLogin" placeholder="Логин">
+        <div class="error" id="regError"></div>
+        <input id="regPass" type="password" placeholder="Пароль">
+        <button onclick="register()">Создать аккаунт</button>
+    </div>
 
-        <button onclick="generateNick()">Сгенерировать ник</button>
-        <div class="result" id="nickResult"></div>
-
-        <button onclick="generatePassword()">Сгенерировать пароль</button>
-        <div class="result" id="passResult"></div>
-
-        <button class="exit" onclick="logout()">Выйти</button>
+    <div id="login" style="display:none">
+        <input id="logLogin" placeholder="Логин">
+        <input id="logPass" type="password" placeholder="Пароль">
+        <button onclick="login()">Войти</button>
     </div>
 </div>
 
-<!-- подпись -->
+<!-- APP -->
+<div class="card" id="app" style="display:none">
+
+<select onchange="setTheme(this.value)">
+    <option value="dark">Dark</option>
+    <option value="light">Light</option>
+    <option value="neon">Neon</option>
+</select>
+
+<input id="baseNick" placeholder="Основа ника">
+
+<button onclick="generateNick()">Сгенерировать ник</button>
+
+<button class="icon-btn" onclick="toggleHistory()">🕘</button>
+<div class="history" id="history"></div>
+
+<div class="result" id="nickResult"></div>
+
+<button onclick="generatePassword()">Сгенерировать пароль</button>
+<div class="result" id="passResult"></div>
+
+<button class="exit" onclick="logout()">Выйти</button>
+</div>
+
+</div>
+
 <div class="site-info">
-    <div>Creator: Aviel</div>
-    <div>Visits</div>
+<div>Creator: Aviel</div>
+<div id="visits">Visits: 0</div>
 </div>
-
-<!-- реальный счётчик визитов -->
-<script data-goatcounter="https://aviel.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 
 <script src="script.js"></script>
 </body>
