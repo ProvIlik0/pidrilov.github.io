@@ -1,60 +1,66 @@
-/* ===== TIMER ===== */
-let time = 1800;
-const timerEl = document.getElementById("timer");
+/* ===== AUTH ===== */
 
-setInterval(() => {
-    if (time <= 0) return;
-    time--;
-    const m = String(Math.floor(time / 60)).padStart(2, "0");
-    const s = String(time % 60).padStart(2, "0");
-    timerEl.textContent = `Осталось ${m}:${s}`;
-}, 1000);
+function showRegister(){
+    document.getElementById("register").style.display="block";
+    document.getElementById("login").style.display="none";
+}
 
-/* ===== NICK GENERATOR ===== */
-const historyArr = [];
+function showLogin(){
+    document.getElementById("register").style.display="none";
+    document.getElementById("login").style.display="block";
+}
 
-function generateNick(){
-    const base = document.getElementById("baseNick").value || "";
-    const caseType = document.getElementById("caseType").value;
+function register(){
+    const login = regLogin.value;
 
-    const letters = "abcdefghijklmnopqrstuvwxyz";
-    const nums = "0123456789";
-
-    let rand = "";
-    for(let i=0;i<6;i++){
-        rand += Math.random() > 0.5
-            ? letters[Math.floor(Math.random()*letters.length)]
-            : nums[Math.floor(Math.random()*nums.length)];
+    if(/[а-яА-Я\s]/.test(login)){
+        regError.textContent = "Нельзя использовать русские буквы или пробелы";
+        return;
     }
 
-    let nick = base + rand;
+    localStorage.setItem("user", JSON.stringify({
+        login,
+        pass: regPass.value
+    }));
 
-    if(caseType === "lower") nick = nick.toLowerCase();
-    if(caseType === "upper") nick = nick.toUpperCase();
-
-    document.getElementById("nickResult").textContent = nick;
-
-    historyArr.unshift(nick);
-    if(historyArr.length > 5) historyArr.pop();
-    renderHistory();
+    auth.style.display="none";
+    app.style.display="block";
 }
 
-function renderHistory(){
-    const h = document.getElementById("history");
-    h.innerHTML = historyArr.join("<br>");
+function login(){
+    const user = JSON.parse(localStorage.getItem("user"));
+    if(!user) return;
+
+    if(logLogin.value === user.login && logPass.value === user.pass){
+        auth.style.display="none";
+        app.style.display="block";
+    }
 }
 
-function toggleHistory(){
-    const h = document.getElementById("history");
-    h.style.display = h.style.display === "block" ? "none" : "block";
+function logout(){
+    app.style.display="none";
+    auth.style.display="block";
+}
+
+/* ===== NICK ===== */
+
+function generateNick(){
+    const base = baseNick.value;
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let r="";
+    for(let i=0;i<6;i++){
+        r+=chars[Math.floor(Math.random()*chars.length)];
+    }
+    nickResult.textContent = base + r;
 }
 
 /* ===== PASSWORD ===== */
+
 function generatePassword(){
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-    let pass = "";
+    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$";
+    let p="";
     for(let i=0;i<12;i++){
-        pass += chars[Math.floor(Math.random()*chars.length)];
+        p+=chars[Math.floor(Math.random()*chars.length)];
     }
-    document.getElementById("passResult").textContent = pass;
+    passResult.textContent = p;
 }
