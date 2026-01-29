@@ -13,21 +13,33 @@ body{
     color:#fff;
 }
 
-.app{
-    width:100%;
-    display:flex;
-    justify-content:center;
+.container{
+    width:320px;
 }
 
-.card{
-    width:320px;
+.auth, .card{
     background:#1a1a1a;
     padding:20px;
-    border-radius:18px;
-    box-shadow:0 0 40px rgba(0,0,0,.6);
+    border-radius:16px;
+    box-shadow:0 0 30px rgba(0,0,0,.6);
 }
 
-input, select, button{
+.tabs{
+    display:flex;
+    gap:6px;
+    margin-bottom:10px;
+}
+
+.tabs button{
+    flex:1;
+    background:#333;
+}
+
+.tabs button.active{
+    background:#b88cff;
+}
+
+input, button{
     width:100%;
     margin-top:10px;
     padding:10px;
@@ -47,32 +59,23 @@ button.exit{
 }
 
 .result{
-    margin-top:8px;
+    margin-top:6px;
     font-size:14px;
-    opacity:.9;
     word-break:break-all;
 }
 
-.history{
-    display:none;
-    margin-top:8px;
-    font-size:13px;
-    opacity:.8;
-}
-
-.timer{
-    text-align:right;
+.error{
     font-size:12px;
-    color:#b88cff;
+    color:#ff6b6b;
+    margin-top:4px;
 }
 
-/* подпись снизу */
 .site-info{
     position:fixed;
     right:12px;
     bottom:12px;
     font-size:8.5px;
     color:rgba(255,255,255,0.5);
-    text-align:right;
     pointer-events:none;
+    text-align:right;
 }
