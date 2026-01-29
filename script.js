@@ -52,12 +52,6 @@ function showLogin(){
 /* =========================
    AUTH LOGIC
    ========================= */
-function valid(login, pass){
-    if(!login || !pass) return "Заполни логин и пароль";
-    if(/[а-яА-Я\s]/.test(login)) return "Русские буквы и пробелы запрещены";
-    return "";
-}
-
 function register(){
     const err = valid(regLogin.value, regPass.value);
     if(err){
@@ -65,24 +59,25 @@ function register(){
         return;
     }
 
-    // сохраняем аккаунт
     localStorage.setItem("user", JSON.stringify({
         l: regLogin.value,
         p: regPass.value
     }));
 
-    // 🔥 ПОСЛЕ РЕГИСТРАЦИИ — ПЕРЕКЛЮЧАЕМ НА ВХОД (МЕНЯЕМ ЦВЕТ)
+    regError.textContent = "Аккаунт создан. Войди 👇";
+    regError.style.color = "#7CFF7C";
+
+    // переключаем вкладку на ВХОД
     showLogin();
 
-    // автоподстановка логина
+    // подставляем логин
     logLogin.value = regLogin.value;
     logPass.value = "";
     logPass.focus();
 
-    regError.textContent = "";
-
     action();
 }
+
 
 function login(){
     const user = JSON.parse(localStorage.getItem("user"));
@@ -166,3 +161,4 @@ function generatePassword(){
     passResult.textContent = p;
     action();
 }
+
