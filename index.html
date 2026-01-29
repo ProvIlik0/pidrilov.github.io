@@ -19,9 +19,10 @@
 
     <div id="register">
         <input id="regLogin" placeholder="Логин">
-        <div class="error" id="regError"></div>
         <input id="regPass" type="password" placeholder="Пароль">
+        <div class="error" id="regError"></div>
         <button onclick="register()">Создать аккаунт</button>
+        <button class="secondary" onclick="createTemp()">Временный аккаунт (30 мин)</button>
     </div>
 
     <div id="login" style="display:none">
@@ -40,13 +41,13 @@
     <option value="neon">Neon</option>
 </select>
 
+<div class="timer" id="timer" style="display:none"></div>
+
 <input id="baseNick" placeholder="Основа ника">
 
 <button onclick="generateNick()">Сгенерировать ник</button>
-
-<button class="icon-btn" onclick="toggleHistory()">🕘</button>
+<button class="icon" onclick="toggleHistory()">🕘</button>
 <div class="history" id="history"></div>
-
 <div class="result" id="nickResult"></div>
 
 <button onclick="generatePassword()">Сгенерировать пароль</button>
@@ -58,8 +59,8 @@
 </div>
 
 <div class="site-info">
-<div>Creator: Aviel</div>
-<div id="visits">Visits: 0</div>
+    <div>Creator: Aviel</div>
+    <div id="visits">Visits: 0</div>
 </div>
 
 <script src="script.js"></script>
