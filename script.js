@@ -189,3 +189,53 @@ function copyText(text){
     const v = document.getElementById("visits");
     if(v) v.innerText = "Visits: " + visits;
 })();
+
+/* =========================
+   VISITS COUNTER (GoatCounter)
+   ========================= */
+
+// ждём загрузки страницы
+document.addEventListener("DOMContentLoaded", () => {
+    const visitsEl = document.getElementById("visits");
+
+    if (!visitsEl) return;
+
+    // стартовое значение (для анимации)
+    let current = 0;
+    visitsEl.textContent = "Visits: ...";
+
+    // GoatCounter даёт данные через глобальный объект
+    function tryGetVisits() {
+        if (window.goatcounter && window.goatcounter.visit_count) {
+            const realCount = window.goatcounter.visit_count;
+            animateCounter(visitsEl, realCount);
+        } else {
+            // если данные ещё не пришли — пробуем снова
+            setTimeout(tryGetVisits, 500);
+        }
+    }
+
+    tryGetVisits();
+});
+
+/* =========================
+   ANIMATION
+   ========================= */
+
+function animateCounter(element, target) {
+    let value = 0;
+    const duration = 800; // мс
+    const stepTime = 20;
+    const steps = duration / stepTime;
+    const increment = Math.max(1, Math.floor(target / steps));
+
+    const timer = setInterval(() => {
+        value += increment;
+        if (value >= target) {
+            value = target;
+            clearInterval(timer);
+        }
+        element.textContent = `Visits: ${value}`;
+    }, stepTime);
+}
+
